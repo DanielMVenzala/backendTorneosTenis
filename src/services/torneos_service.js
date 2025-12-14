@@ -20,15 +20,14 @@ const guardarResultado = async ({
   }
 
   // 2. Acceder a la ronda correcta
-  // ronda será algo como "cuartos_de_final" | "semifinales" | "final"
-  const rondaObj = torneo.ronda[ronda];
-  if (!rondaObj) {
+  const buscaRonda = torneo.ronda[ronda];
+  if (!buscaRonda) {
     const error = new Error("La ronda indicada no existe en este torneo");
     error.status = 400;
     throw error;
   }
 
-  const partidos = rondaObj.partidos;
+  const partidos = buscaRonda.partidos;
 
   // 3. Buscar el primer hueco vacío
   const indiceLibre = partidos.findIndex(

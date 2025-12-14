@@ -20,8 +20,7 @@ const getTorneos = async (req, res) => {
   }
 };
 
-const postResultado = async (req, res) => {
-  // 👇 Esto sí: aquí está lo que envías desde Postman / frontend
+const guardarResultado = async (req, res) => {
   const { nombreTorneo, ronda, jugador1, jugador2, resultado } = req.body;
 
   // Validaciones básicas
@@ -33,8 +32,7 @@ const postResultado = async (req, res) => {
   }
 
   try {
-    // Aquí ya iría la lógica real para actualizar el torneo en Mongo
-    const createdResult = await torneosService.guardarResultado({
+    const resultadoNuevo = await torneosService.guardarResultado({
       nombreTorneo,
       ronda,
       jugador1,
@@ -42,7 +40,7 @@ const postResultado = async (req, res) => {
       resultado,
     });
 
-    return res.status(201).send({ status: "OK", data: createdResult });
+    return res.status(201).send({ status: "OK", data: resultadoNuevo });
   } catch (error) {
     return res.status(error?.status || 500).send({
       status: "FAILED",
@@ -53,5 +51,5 @@ const postResultado = async (req, res) => {
 
 module.exports = {
   getTorneos,
-  postResultado,
+  guardarResultado,
 };
